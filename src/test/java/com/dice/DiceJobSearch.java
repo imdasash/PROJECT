@@ -73,6 +73,8 @@ public class DiceJobSearch {
 		}
 		
 		driver.close();
+		
+		// comment
 
 	}
 
