@@ -1,10 +1,13 @@
 package com.dice;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.github.javafaker.Faker;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -48,7 +51,17 @@ public class DiceJobSearch {
 		/*
 		 * Step 2. Insert search keyword amd location then click on find tech jobs
 		 */
-		String keyword = "java developer";
+		ArrayList <String> s1 = new ArrayList();
+		
+		
+		s1.add("java");s1.add("selenium");s1.add("qtp");s1.add("hp");s1.add("oca");
+		s1.add("git");s1.add("maven");s1.add("ruby");s1.add("python");s1.add("QA");
+		
+		
+		for(int i=0; i<s1.size();i++) {
+			
+		
+		String keyword = s1.get(i);
 		driver.findElement(By.id("search-field-keyword")).clear();
 		driver.findElement(By.id("search-field-keyword")).sendKeys(keyword);
 
@@ -59,20 +72,32 @@ public class DiceJobSearch {
 		driver.findElement(By.id("findTechJobs")).click();
 
 		String count = driver.findElement(By.id("posiCountId")).getText();
+		
+		if(driver.getTitle().contains("Jobs not found | Dice.com")) {
+			count = "0";
+		}else {
+			 count = driver.findElement(By.id("posiCountId")).getText();
+		}
 
-		System.out.println(count);
+		
 		
 		//ensure count is more than 0
 		
 		int countResult = Integer.parseInt(count.replace(",", ""));
 		
 		if(countResult > 0) {
-			System.out.println("more than 1000 jobs");
+			s1.set(i,s1.get(i)+ " - " +count);
+//			s1.add(i, count+"");
+			
 		}else {
 			System.out.println("less than 1000 jobs");
 		}
+		System.out.println(s1.get(i));
+		driver.navigate().back();
+		}		
 		
-		driver.close();
+		System.out.println(s1);
+		//driver.close();
 		
 		// comment
 
