@@ -1,6 +1,9 @@
 package com.dice;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -13,7 +16,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DiceJobSearch {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		
 
@@ -49,13 +52,19 @@ public class DiceJobSearch {
 		}
 
 		/*
-		 * Step 2. Insert search keyword amd location then click on find tech jobs
+		 * Step 2. Insert search keyword and location then click on find tech jobs
 		 */
+		Scanner s = new Scanner(new File("/Users/oleksandrdanylchuk/eclipse-workspace/SeleniumMavenAutomation/keywords"));
+		
 		ArrayList <String> s1 = new ArrayList();
 		
+		while (s.hasNext()){
+		    s1.add(s.next());
+		}
 		
-		s1.add("java");s1.add("selenium");s1.add("qtp");s1.add("hp");s1.add("oca");
-		s1.add("git");s1.add("maven");s1.add("ruby");s1.add("python");s1.add("QA");
+		
+//		s1.add("java");s1.add("selenium");s1.add("qtp");s1.add("hp");s1.add("oca");
+//		s1.add("git");s1.add("maven");s1.add("ruby");s1.add("python");s1.add("QA");
 		
 		
 		for(int i=0; i<s1.size();i++) {
@@ -97,7 +106,10 @@ public class DiceJobSearch {
 		}		
 		
 		System.out.println(s1);
-		//driver.close();
+		
+		
+		driver.close();
+		s.close();
 		
 		// comment
 
